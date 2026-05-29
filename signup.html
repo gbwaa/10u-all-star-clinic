@@ -1,74 +1,157 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign Up | GBWAA 10U All-Star Clinic</title>
-  <meta name="description" content="Sign up for the GBWAA 10U All-Star Fastpitch Softball Clinic fundraiser.">
-  <link rel="stylesheet" href="public/styles.css">
-</head>
-<body>
-  <header class="banner">
-    <nav class="navbar" aria-label="Primary navigation">
-      <a class="brand" href="index.html">
-        <img class="logo" src="public/gbwaa-softball-logo.png" alt="GBWAA Softball logo">
-        <span class="brand-text"><span>GBWAA Softball</span><strong>Clinic Sign Up</strong></span>
-      </a>
-      <div class="navlinks">
-        <a href="index.html">Home</a>
-        <a href="meet-the-staff/index.html">Meet the Staff</a>
-      </div>
-    </nav>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up | GBWAA 10U All-Star Clinic</title>
+    <meta
+      name="description"
+      content="Sign up for the GBWAA 10U All-Star Fastpitch Softball Clinic fundraiser."
+    />
+    <link rel="stylesheet" href="public/styles.css" />
+  </head>
+  <body>
+    <header class="banner">
+      <nav class="navbar" aria-label="Primary navigation">
+        <a class="brand" href="index.html">
+          <img
+            class="logo"
+            src="public/gbwaa-softball-logo.png"
+            alt="GBWAA Softball logo"
+          />
+          <span class="brand-text"
+            ><span>GBWAA Softball</span><strong>Clinic Sign Up</strong></span
+          >
+        </a>
+        <div class="navlinks">
+          <a href="index.html">Home</a>
+          <a href="meet-the-staff/index.html">Meet the Staff</a>
+        </div>
+      </nav>
+    </header>
 
-  <main>
-    <section class="form-card">
-      <span class="fundraiser-badge">10U Fastpitch All-Star Fundraiser</span>
-      <h1>Sign up for the clinic</h1>
+    <main>
+      <section class="form-card">
+        <span class="fundraiser-badge">10U Fastpitch All-Star Fundraiser</span>
+        <h1>Sign up for the clinic</h1>
+        <p>
+          The clinic will be held June 29 and June 30, with July 1 and July 2
+          reserved as rainout makeup days if needed. Cost is $40 per player, and
+          all proceeds go toward the Baldwin 10U All-Stars.
+        </p>
+        <p>
+          Please enter your player's information below to reserve a clinic spot.
+          After submitting, your registration will be sent directly to the
+          clinic sign-up sheet.
+        </p>
+        <form
+          class="form-grid"
+          action="https://script.google.com/macros/s/AKfycbx2RxYtznSwjavsyNYNNiIMtGSUXkvMFN7cSpRgMarpBpjKu94GePINq7Oy1m14aCw/exec"
+          method="post"
+        >
+          <label for="child-name">
+            Child's name
+            <input
+              id="child-name"
+              name="child_name"
+              type="text"
+              autocomplete="name"
+              placeholder="Enter player name"
+              required
+            />
+          </label>
+
+          <label for="current-level">
+            Current level
+            <select id="current-level" name="level" required>
+              <option value="" selected disabled>Select current level</option>
+              <option value="6u">6U</option>
+              <option value="8u">8U</option>
+            </select>
+          </label>
+
+          <label for="parent-name">
+            Parent/guardian name
+            <input
+              id="parent-name"
+              name="parent_name"
+              type="text"
+              autocomplete="name"
+              placeholder="Enter parent or guardian name"
+            />
+          </label>
+
+          <label for="parent-email">
+            Parent/guardian email
+            <input
+              id="parent-email"
+              name="parent_email"
+              type="email"
+              autocomplete="email"
+              placeholder="name@example.com"
+            />
+          </label>
+
+          <label for="notes">
+            Notes for clinic staff
+            <textarea
+              id="notes"
+              name="notes"
+              rows="4"
+              placeholder="Optional: experience level, pitching interest, or anything coaches should know"
+            ></textarea>
+          </label>
+
+          <button class="button" type="submit">Submit Sign Up</button>
+          <p class="note">
+            Clinic dates are June 29 and June 30. Rainout makeup days are July 1
+            and July 2, if needed.
+          </p>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
       <p>
-        The clinic will be held June 29 and June 30, with July 1 and July 2 reserved as rainout makeup days if needed. Cost is $40 per player, and all proceeds go toward the Baldwin 10U All-Stars.
+        Thank you for supporting the Baldwin 10U All-Stars. All proceeds from
+        the $40 clinic fee go toward the team.
       </p>
-      <p>
-        Please enter your player's information below. The form is ready for the future Google Sheets connection; for now, it captures the exact information parents will need to provide.
-      </p>
-      <form class="form-grid" action="#" method="post">
-        <label for="child-name">
-          Child's name
-          <input id="child-name" name="childName" type="text" autocomplete="name" placeholder="Enter player name" required>
-        </label>
+    </footer>
+    <script>
+      const signupForm = document.querySelector(".form-grid");
+      const formStatus = document.querySelector(".form-status");
 
-        <label for="current-level">
-          Current level
-          <select id="current-level" name="currentLevel" required>
-            <option value="" selected disabled>Select current level</option>
-            <option value="6u">6U</option>
-            <option value="8u">8U</option>
-          </select>
-        </label>
+      signupForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-        <label for="parent-name">
-          Parent/guardian name
-          <input id="parent-name" name="parentName" type="text" autocomplete="name" placeholder="Enter parent or guardian name">
-        </label>
+        const submitButton = signupForm.querySelector("button[type='submit']");
+        const originalButtonText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+        formStatus.textContent = "Sending your registration...";
+        formStatus.className = "form-status";
 
-        <label for="parent-email">
-          Parent/guardian email
-          <input id="parent-email" name="parentEmail" type="email" autocomplete="email" placeholder="name@example.com">
-        </label>
+        try {
+          await fetch(signupForm.action, {
+            method: "POST",
+            body: new URLSearchParams(new FormData(signupForm)),
+            mode: "no-cors",
+          });
 
-        <label for="notes">
-          Notes for clinic staff
-          <textarea id="notes" name="notes" rows="4" placeholder="Optional: experience level, pitching interest, or anything coaches should know"></textarea>
-        </label>
-
-        <button class="button" type="submit">Submit Sign Up</button>
-        <p class="note">Clinic dates are June 29 and June 30. Rainout makeup days are July 1 and July 2, if needed. Google Sheets integration will be added later, so this button is currently a placeholder.</p>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <p>Thank you for supporting the Baldwin 10U All-Stars. All proceeds from the $40 clinic fee go toward the team.</p>
-  </footer>
-</body>
+          signupForm.reset();
+          formStatus.textContent =
+            "Thank you! Your clinic sign-up has been submitted.";
+          formStatus.classList.add("success");
+        } catch (error) {
+          formStatus.textContent =
+            "Sorry, we could not submit the form. Please try again.";
+          formStatus.classList.add("error");
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+      });
+    </script>
+  </body>
 </html>
