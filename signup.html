@@ -46,7 +46,7 @@
         </p>
         <form
           class="form-grid"
-          action="https://script.google.com/macros/s/AKfycbx2RxYtznSwjavsyNYNNiIMtGSUXkvMFN7cSpRgMarpBpjKu94GePINq7Oy1m14aCw/exec"
+          action="https://script.google.com/macros/s/AKfycbwH_mi19i5DpLavAXUuXBPtLm1xGLS_ALR5C65hfJVZjIadQf_oybpG4VRJtjXTK0IA/exec"
           method="post"
           enctype="application/x-www-form-urlencoded"
           target="signup-response"
@@ -71,6 +71,19 @@
               <option value="8u">8U</option>
             </select>
           </label>
+
+          <label for="payment">
+            Payment
+            <select id="payment" name="payment" required>
+              <option value="" selected disabled>Select payment method</option>
+              <option value="cash">Cash</option>
+              <option value="venmo">Venmo</option>
+            </select>
+          </label>
+          <p class="payment-alert" id="venmo-payment-note" hidden>
+            Venmo payments should be sent to
+            <strong>@Anthony-Langel</strong> after you submit your sign-up.
+          </p>
 
           <label for="parent-name">
             Parent/guardian name
@@ -130,6 +143,8 @@
       const formStatus = document.querySelector(".form-status");
       const responseFrame = document.querySelector(".signup-response-frame");
       const submitButton = signupForm.querySelector("button[type='submit']");
+      const paymentSelect = document.querySelector("#payment");
+      const venmoPaymentNote = document.querySelector("#venmo-payment-note");
       let submissionStarted = false;
       let confirmationTimer;
 
@@ -141,6 +156,10 @@
       function goToConfirmation(status) {
         window.location.href = `signup-confirmation.html?status=${status}`;
       }
+
+      paymentSelect.addEventListener("change", () => {
+        venmoPaymentNote.hidden = paymentSelect.value !== "venmo";
+      });
 
       signupForm.addEventListener("submit", () => {
         saveSubmissionDetails();

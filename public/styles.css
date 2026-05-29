@@ -363,8 +363,57 @@ textarea:focus {
   color: #b91c1c;
 }
 
+.payment-alert {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: 2px solid rgba(248, 197, 55, 0.85);
+  border-radius: 16px;
+  background: rgba(248, 197, 55, 0.24);
+  color: #5c3a00;
+  font-weight: 900;
+  line-height: 1.55;
+}
+
 .signup-response-frame {
   display: none;
+}
+
+.confirmation-card {
+  max-width: 860px;
+}
+
+.submission-details {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.5rem 0;
+}
+
+.submission-details div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem;
+  border: 1px solid rgba(42, 20, 95, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.submission-details dt {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.submission-details dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.confirmation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
 }
 
 .staff-hero {

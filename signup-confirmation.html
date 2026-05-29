@@ -50,6 +50,10 @@
             <dd data-detail="level">Not provided</dd>
           </div>
           <div>
+            <dt>Payment</dt>
+            <dd data-detail="payment">Not provided</dd>
+          </div>
+          <div>
             <dt>Parent/guardian name</dt>
             <dd data-detail="parent_name">Not provided</dd>
           </div>
@@ -62,6 +66,11 @@
             <dd data-detail="notes">Not provided</dd>
           </div>
         </dl>
+
+        <p class="payment-alert" id="confirmation-venmo-note" hidden>
+          Please send your $30 clinic payment by Venmo to
+          <strong>@Anthony-Langel</strong>.
+        </p>
 
         <p class="note">
           Clinic dates are June 29 and June 30 from 6:00-7:30 PM. Rainout makeup
@@ -89,9 +98,16 @@
       const status = new URLSearchParams(window.location.search).get("status");
       const title = document.querySelector("#confirmation-title");
       const message = document.querySelector("#confirmation-message");
+      const venmoConfirmationNote = document.querySelector(
+        "#confirmation-venmo-note",
+      );
       const levelLabels = {
         "6u": "6U",
         "8u": "8U",
+      };
+      const paymentLabels = {
+        cash: "Cash",
+        venmo: "Venmo",
       };
 
       if (status === "error") {
@@ -103,8 +119,11 @@
       for (const element of document.querySelectorAll("[data-detail]")) {
         const fieldName = element.dataset.detail;
         const value = details[fieldName];
-        element.textContent = levelLabels[value] || value || "Not provided";
+        element.textContent =
+          levelLabels[value] || paymentLabels[value] || value || "Not provided";
       }
+
+      venmoConfirmationNote.hidden = details.payment !== "venmo";
     </script>
   </body>
 </html>
