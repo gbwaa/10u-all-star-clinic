@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up Confirmation | GBWAA 10U All-Star Clinic</title>
+    <meta
+      name="description"
+      content="Confirmation for your GBWAA 10U All-Star Fastpitch Softball Clinic sign-up."
+    />
+    <link rel="stylesheet" href="public/styles.css" />
+  </head>
+  <body>
+    <header class="banner">
+      <nav class="navbar" aria-label="Primary navigation">
+        <a class="brand" href="index.html">
+          <img
+            class="logo"
+            src="public/gbwaa-softball-logo.png"
+            alt="GBWAA Softball logo"
+          />
+          <span class="brand-text"
+            ><span>GBWAA Softball</span><strong>Clinic Sign Up</strong></span
+          >
+        </a>
+        <div class="navlinks">
+          <a href="index.html">Home</a>
+          <a href="signup.html">Sign Up</a>
+          <a href="meet-the-staff/index.html">Meet the Staff</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="form-card confirmation-card">
+        <span class="fundraiser-badge">10U Fastpitch All-Star Fundraiser</span>
+        <h1 id="confirmation-title">Sign-up received</h1>
+        <p id="confirmation-message">
+          Thank you! Your clinic sign-up has been submitted. Please review the
+          details below.
+        </p>
+
+        <dl class="submission-details" aria-label="Submitted sign-up details">
+          <div>
+            <dt>Child's name</dt>
+            <dd data-detail="child_name">Not provided</dd>
+          </div>
+          <div>
+            <dt>Current level</dt>
+            <dd data-detail="level">Not provided</dd>
+          </div>
+          <div>
+            <dt>Parent/guardian name</dt>
+            <dd data-detail="parent_name">Not provided</dd>
+          </div>
+          <div>
+            <dt>Parent/guardian email</dt>
+            <dd data-detail="parent_email">Not provided</dd>
+          </div>
+          <div>
+            <dt>Notes for clinic staff</dt>
+            <dd data-detail="notes">Not provided</dd>
+          </div>
+        </dl>
+
+        <p class="note">
+          Clinic dates are June 29 and June 30. Rainout makeup days are July 1
+          and July 2, if needed.
+        </p>
+        <div class="confirmation-actions">
+          <a class="button" href="index.html">Go Back Home</a>
+          <a class="button secondary" href="signup.html"
+            >Submit Another Sign Up</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Thank you for supporting the Baldwin 10U All-Stars. All proceeds from
+        the $40 clinic fee go toward the team.
+      </p>
+    </footer>
+    <script>
+      const details = JSON.parse(
+        sessionStorage.getItem("clinicSignupDetails") || "{}",
+      );
+      const status = new URLSearchParams(window.location.search).get("status");
+      const title = document.querySelector("#confirmation-title");
+      const message = document.querySelector("#confirmation-message");
+      const levelLabels = {
+        "6u": "6U",
+        "8u": "8U",
+      };
+
+      if (status === "error") {
+        title.textContent = "We could not confirm your sign-up";
+        message.textContent =
+          "Your details are shown below, but the submission did not finish confirming. Please try again or contact the clinic staff if the problem continues.";
+      }
+
+      for (const element of document.querySelectorAll("[data-detail]")) {
+        const fieldName = element.dataset.detail;
+        const value = details[fieldName];
+        element.textContent = levelLabels[value] || value || "Not provided";
+      }
+    </script>
+  </body>
+</html>

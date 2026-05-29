@@ -130,15 +130,29 @@
       const formStatus = document.querySelector(".form-status");
       const responseFrame = document.querySelector(".signup-response-frame");
       const submitButton = signupForm.querySelector("button[type='submit']");
-      const originalButtonText = submitButton.textContent;
       let submissionStarted = false;
+      let confirmationTimer;
+
+      function saveSubmissionDetails() {
+        const details = Object.fromEntries(new FormData(signupForm).entries());
+        sessionStorage.setItem("clinicSignupDetails", JSON.stringify(details));
+      }
+
+      function goToConfirmation(status) {
+        window.location.href = `signup-confirmation.html?status=${status}`;
+      }
 
       signupForm.addEventListener("submit", () => {
+        saveSubmissionDetails();
         submissionStarted = true;
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
         formStatus.textContent = "Sending your registration...";
         formStatus.className = "form-status";
+        confirmationTimer = window.setTimeout(
+          () => goToConfirmation("error"),
+          20000,
+        );
       });
 
       responseFrame.addEventListener("load", () => {
@@ -146,13 +160,9 @@
           return;
         }
 
-        signupForm.reset();
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
-        formStatus.textContent =
-          "Thank you! Your clinic sign-up has been submitted.";
-        formStatus.classList.add("success");
+        window.clearTimeout(confirmationTimer);
         submissionStarted = false;
+        goToConfirmation("success");
       });
     </script>
   </body>
