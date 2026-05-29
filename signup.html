@@ -48,6 +48,8 @@
           class="form-grid"
           action="https://script.google.com/macros/s/AKfycbx2RxYtznSwjavsyNYNNiIMtGSUXkvMFN7cSpRgMarpBpjKu94GePINq7Oy1m14aCw/exec"
           method="post"
+          enctype="application/x-www-form-urlencoded"
+          target="signup-response"
         >
           <label for="child-name">
             Child's name
@@ -109,6 +111,11 @@
           </p>
           <p class="form-status" aria-live="polite"></p>
         </form>
+        <iframe
+          class="signup-response-frame"
+          name="signup-response"
+          title="Sign-up submission response"
+        ></iframe>
       </section>
     </main>
 
@@ -121,36 +128,31 @@
     <script>
       const signupForm = document.querySelector(".form-grid");
       const formStatus = document.querySelector(".form-status");
+      const responseFrame = document.querySelector(".signup-response-frame");
+      const submitButton = signupForm.querySelector("button[type='submit']");
+      const originalButtonText = submitButton.textContent;
+      let submissionStarted = false;
 
-      signupForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const submitButton = signupForm.querySelector("button[type='submit']");
-        const originalButtonText = submitButton.textContent;
+      signupForm.addEventListener("submit", () => {
+        submissionStarted = true;
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
         formStatus.textContent = "Sending your registration...";
         formStatus.className = "form-status";
+      });
 
-        try {
-          await fetch(signupForm.action, {
-            method: "POST",
-            body: new URLSearchParams(new FormData(signupForm)),
-            mode: "no-cors",
-          });
-
-          signupForm.reset();
-          formStatus.textContent =
-            "Thank you! Your clinic sign-up has been submitted.";
-          formStatus.classList.add("success");
-        } catch (error) {
-          formStatus.textContent =
-            "Sorry, we could not submit the form. Please try again.";
-          formStatus.classList.add("error");
-        } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = originalButtonText;
+      responseFrame.addEventListener("load", () => {
+        if (!submissionStarted) {
+          return;
         }
+
+        signupForm.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        formStatus.textContent =
+          "Thank you! Your clinic sign-up has been submitted.";
+        formStatus.classList.add("success");
+        submissionStarted = false;
       });
     </script>
   </body>

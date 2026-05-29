@@ -363,6 +363,10 @@ textarea:focus {
   color: #b91c1c;
 }
 
+.signup-response-frame {
+  display: none;
+}
+
 .staff-hero {
   width: min(1120px, calc(100% - 2rem));
   margin: 2rem auto 0;
